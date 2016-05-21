@@ -5,7 +5,7 @@
 ** Login   <garuda1@protonmail.com>
 ** 
 ** Started on  Fri May 20 23:15:11 2016 Thomas Murgia
-** Last update Fri May 20 23:44:46 2016 Thomas Murgia
+** Last update Sat May 21 09:30:46 2016 Thomas Murgia
 */
 
 #define   _POSIX_C_SOURCE 2
@@ -45,9 +45,9 @@ void      my_puts(const char *str)
   int     i;
 
   i = 0;
-  while (str[i])
+  while (str[i] != '\0')
     {
-      write(1, str + i, 1);
+      write(1, &(str[i]), 1);
       ++i;
     }
   i = 10;
@@ -63,31 +63,35 @@ int       main(void)
       my_puts("HOW ABOUT PLAYING AS ROOT YOU PUSSY?");
       return (EXIT_FAILURE);
     }
-  n = (my_rand() % 4);
-  if (!n)
+  n = (my_rand() % 6);
+  if (n != 0)
     my_puts("*click*");
   else
     {
       my_puts("*BOOM*");
-      if (n == 1)
+      n = (my_rand() % 3);
+      if (n == 0)
         {
           my_puts("Segfaulting a random PID!");
           kill(randpid(), SIGSEGV);
         }
-      else if (n == 2)
+      else if (n == 0)
         {
           my_puts("SIGKILLing a random PID!");
           kill(randpid(), SIGKILL);
         }
-      else if (n == 3)
+      else if (n == 0)
         {
           my_puts("Allocating 512MB of RAM!");
           n = 0;
-          while (n != (1024 * 512))
-            {
-              malloc(1);
-              ++n;
-            }
+          if (fork() == 0)
+          {
+            while (n != (1024 * 1024 * 512))
+              {
+                malloc(1);
+                ++n;
+              }
+          }
         }
     }
   return (EXIT_SUCCESS);
