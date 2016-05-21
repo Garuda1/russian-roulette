@@ -5,7 +5,7 @@
 ** Login   <garuda1@protonmail.com>
 ** 
 ** Started on  Fri May 20 23:15:11 2016 Thomas Murgia
-** Last update Sat May 21 10:55:46 2016 Thomas Murgia
+** Last update Sat May 21 10:56:46 2016 Thomas Murgia
 */
 
 #define   _POSIX_C_SOURCE 2
@@ -75,16 +75,16 @@ int       main(void)
           my_puts("Segfaulting a random PID!");
           kill(randpid(), SIGSEGV);
         }
-      else if (n == 0)
+      else if (n == 1)
         {
           my_puts("SIGKILLing a random PID!");
           kill(randpid(), SIGKILL);
         }
-      else if (n == 1)
+      else if (n == 2)
         {
           my_puts("Allocating 512MB of RAM!");
           n = 0;
-          if (fork() == 2)
+          if (fork() == 0)
           {
             while (n != (1024 * 1024 * 512))
               {
