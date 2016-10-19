@@ -26,6 +26,9 @@ clean:
 fclean: clean
 				$(RM) $(NAME)
 
+install:
+	cp $(NAME) /usr/bin
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean install re
