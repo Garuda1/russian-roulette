@@ -10,6 +10,8 @@ No arguments required.
 
 ## Description
 
+REQUIRES UNIXLIB => [repository link](https://github.com/Garuda1/unixlib)
+
 Do you feel like taking a risk? Is the extreme appeal of danger reaching the deepest parts of your soul? Or maybe you're stuck at a meeting with not much to do? I've got exactly what you need! A game of russian roulette!
 
 ## Compilation
