@@ -1,41 +1,50 @@
 /*
-** roulette.c for source in /home/admin/Documents/Programming/russian-roulette/source
-** 
-** Made by Thomas Murgia
-** Login   <garuda1@protonmail.com>
-** 
-** Started on  Fri May 20 23:15:11 2016 Thomas Murgia
-** Last update Sat May 21 11:39:22 2016 Thomas Murgia
-*/
+ * roulette.c
+ *
+ * Licensed under GNU GPL v3
+ * By Thomas Murgia <garuda1@protonmail.com>
+ *
+ */
 
-#define   _POSIX_C_SOURCE 2
+#define _POSIX_C_SOURCE 200809L
 
-#include  <my.h>
-#include  <trolls.h>
-#include  <unistd.h>
-#include  <stdlib.h>
+#include <unixlib-io.h>
+#include <unixlib.h>
+#include <roulette.h>
+#include <unistd.h>
 
-int       main(void)
+int main(void)
 {
-  int     n;
+  int n;
 
   if (getuid() != 0)
-    return (my_retstr("HOW ABOUT PLAYING AS ROOT YOU PUSSY?!", EXIT_FAILURE));
-  n = (my_rand() % 6);
+    return (my_retstr(FAILURE, ERR_NOTROOT));
+
+  n = my_rand();
+  if (n < 0)
+    n *= -1;
+  n %= 6;
+
   if (n != 0)
     my_puts("*click*");
   else
-    {
+  {
       my_puts("*BANG*");
-      n = (my_rand() % 4);
-      if (n == 0)
-        segfault_rand();
-      else if (n == 1)
-        sigkill_rand();
-      else if (n == 2)
-        fork_bomb();
-      else if (n == 3)
-        waste_disk();
-    }
-  return (EXIT_SUCCESS);
+      switch (n % 4)
+      {
+        case 0:
+          segfault_rand();
+          break;
+        case 1:
+          sigkill_rand();
+          break;
+        case 2:
+          fork_bomb();
+          break;
+        case 3:
+          waste_disk();
+          break;
+      }
+  }
+  return (SUCCESS);
 }

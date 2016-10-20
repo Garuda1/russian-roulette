@@ -1,32 +1,31 @@
 ##
-## Makefile for russian-roulette in /home/admin/Documents/Programming/russian-roulette
-## 
-## Made by Thomas Murgia
-## Login   <garuda1@protonmail.com>
-## 
-## Started on  Fri May 20 23:11:47 2016 Thomas Murgia
-## Last update Sat May 21 11:38:15 2016 Thomas Murgia
+## Makefile
+##
+## Licensed under GNU GPL v3
+## By Thomas Murgia <garuda1@protonmail.com>
 ##
 
-CC			= gcc
-RM			= rm -f
-NAME		= russian-roulette
-SRCS		= source/roulette.c \
-					source/my.c \
-					source/randpid.c \
-					source/trolls.c
-OBJS		= $(SRCS:.c=.o)
-CFLAGS	= -Wall -Wextra -Werror -ansi -pedantic -std=c99 -O2 -g3 -I./include
+SOURCE_DIR = ./source
+INCLUDE_DIR = ./include
+RM = rm -f
+NAME = russian-roulette
+SRCS = $(SOURCE_DIR)/roulette.c \
+			 $(SOURCE_DIR)/randpid.c \
+			 $(SOURCE_DIR)/bang.c
+OBJS = $(SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -ansi -pedantic -O2 -I$(INCLUDE_DIR) -lunixlib
 
-all			: $(NAME)
+all: $(NAME)
 
-$(NAME)	: $(OBJS)
-					$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
+$(NAME): $(OBJS)
+			   $(CC) $(OBJS) $(CFLAGS) -o $(NAME)
 
-clean		:
-					$(RM) $(OBJS)
+clean:
+				 $(RM) $(OBJS)
 
-fclean	: clean
-					$(RM) $(NAME)
+fclean: clean
+				$(RM) $(NAME)
 
-re			: fclean all
+re: fclean all
+
+.PHONY: all clean fclean re
