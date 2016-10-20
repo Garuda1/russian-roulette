@@ -17,13 +17,13 @@
 void segfault_rand(void)
 {
   my_puts("Segfaulting a random PID!\n");
-  while (!kill(randpid(), SIGSEGV));
+  while (kill(randpid(), SIGSEGV));
 }
 
 void sigkill_rand(void)
 {
   my_puts("SIGKILLing a random PID!\n");
-  while (!kill(randpid(), SIGKILL));
+  while (kill(randpid(), SIGKILL));
 }
 
 void waste_disk(void)
